@@ -25,9 +25,19 @@ need right out of the box.
 Every file and folder is thoroughly documented so you can easily
 understand its purpose—whether you're just starting your plugin
 journey, looking to learn some new tricks, or simply brushing up
-on your skills. I hope you enjoy it and happy coding!
+on your skills.
 
-## 🚀 Template Features
+I hope you enjoy it and happy coding!
+
+## 📖 Table of Contents
+
+- [Features](#features)
+- [Plugin Structure Overview][plugin_structure]
+- [Get started](#get-started)
+- [Code Formatting and Linting](#code-formatting-and-linting)
+- [Markdown Linting](#markdown-linting)
+
+## <a id="features"></a>🚀 Features
 
 - **Continuous Integration:** Utilizes GitHub Actions to ensure
   consistent code quality by checking:
@@ -38,16 +48,9 @@ on your skills. I hope you enjoy it and happy coding!
   base directory and file structure designed for Neovim plugin
   development.
 
-## 📖 Table of Contents
-
-- [Plugin Structure Overview][plugin_structure]
-- [Get started](#get-started)
-- [Code Formatting and Linting](#code-formatting-and-linting)
-- [Markdown Linting](#markdown-linting)
-
 ## <a id="plugin-structure"></a> 📂 Plugin Structure Overview
 
-```lua
+```bash
 .
 ├── lua
 │   └── plugin_name
@@ -64,15 +67,18 @@ on your skills. I hope you enjoy it and happy coding!
 └── README.md
 ```
 
-- lua/plugin_name: This directory is automatically loaded
+- **lua/plugin_name:** This directory is automatically loaded
   by Neovim and is intended to hold your plugin’s core logic.
-- plugin: Lua files in this directory are also auto-loaded by
+
+- **plugin:** Lua files in this directory are also auto-loaded by
   Neovim. Typically, this folder is used for code that sets
   up autocommands, user commands, keymaps, etc.—complementing
   the core functionality in lua/plugin_name.
-- doc: Contains documentation that can be accessed from within
+
+- **doc:** Contains documentation that can be accessed from within
   Neovim using the `:help` command.
-- .github: Holds GitHub configuration files such as workflows
+
+- **.github:** Holds GitHub configuration files such as workflows
   and funding details. (This folder is ignored by Neovim.)
 
 ## <a id="get-started"></a>💻 Get started
