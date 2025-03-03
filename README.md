@@ -41,12 +41,18 @@ I hope you enjoy it and happy coding!
 
 - **Continuous Integration:** Utilizes GitHub Actions to ensure
   consistent code quality by checking:
+
   - Code formatting with [Stylua][stylua]
   - Lua linting with [Luacheck][luacheck]
   - Markdown linting with [Markdownlint][markdownlint]
+
 - **Standard Directory Structure:** Comes with a well-organized
   base directory and file structure designed for Neovim plugin
   development.
+
+- **Prebuilt README Template:** Includes a structured README with
+  essential sections, so you can focus on content instead of
+  setting up headers, a table of contents, and formatting.
 
 ## <a id="plugin-structure"></a> 📂 Plugin Structure Overview
 
@@ -64,6 +70,7 @@ I hope you enjoy it and happy coding!
 │   └── workflows
 │       ├── markdown_linting.yaml
 │       └── code_checks.yaml
+├── README_TEMPLATE.md
 └── README.md
 ```
 
