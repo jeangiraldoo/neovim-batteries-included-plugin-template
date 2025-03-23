@@ -39,6 +39,9 @@ I hope you enjoy it and happy coding!
 
 ## <a id="features"></a>🚀 Features
 
+- **Automated setup:** A Lua script that renames directories,
+  files, and updates the README with your plugin’s name and
+  repository link
 - **Continuous Integration:** Utilizes GitHub Actions to ensure
   consistent code quality by checking:
 
@@ -70,6 +73,7 @@ I hope you enjoy it and happy coding!
 │   └── workflows
 │       ├── markdown_linting.yaml
 │       └── code_checks.yaml
+├── script.lua
 ├── README_TEMPLATE.md
 └── README.md
 ```
@@ -90,22 +94,34 @@ I hope you enjoy it and happy coding!
 
 ## <a id="get-started"></a>💻 Get started
 
-Follow these steps to use the template:
+To use this template, you can either:
 
-1. Clone or Create from Template: Either clone this repository,
-   or if you're on GitHub, click the "Use this template" button
-   at the top-right of the repository page and select "Create
-   new repository".
-1. Rename Instances: Use the [plugin structure][plugin_structure] as a guide,
-   and replace every instance of plugin_name with the name of
-   your plugin.
-1. Replace the FUNDING.yaml file with your own or delete it,
-   as this file is used in this template repository to display
-   my "Sponsor" button.
-1. (Optional) Customize: Adjust the dotfiles or other
-   configuration defaults to better match your desired plugin
-   style.
-1. Have fun working on your plugin! :)
+- **Clone this repository** manually, or
+- **Use the "Use this template" button** on GitHub (top-right
+  of the repository page) to create a new repository.
+
+Once you’re ready to customize the template, choose one of the
+following setup methods:
+
+### ⚡ Option 1: Automated Setup (Recommended)
+
+1. Open `script.lua` in Neovim and run `:luafile %`,
+   or execute the script using the Lua interpreter.
+2. Enter your plugin’s name when prompted.
+3. Enter your plugin’s repository URL.
+
+### 🚀 Option 2: Manual Setup
+
+1. **Rename Instances:** Follow the
+   [plugin structure][plugin_structure] and replace every
+   instance of `plugin_name` with your plugin’s name.
+2. **Update FUNDING.yaml:** Replace this file with your own or
+   delete it (this template uses it for the "Sponsor" button).
+3. **(Optional) Customize:** Adjust dotfiles and configuration
+   settings to match your plugin's style.
+
+That’s it! Your template is now set up and ready to go. 🎉 Have fun
+working on your plugin! :)
 
 ## <a id="code-formatting-and-linting"></a>🛠️ Code Formatting and Linting
 
