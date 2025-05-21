@@ -11,66 +11,24 @@ on:
 
 jobs:
   format-check:
-    name: Check formatting
+    name: Code formatting check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Create directories for Lua and LuaRocks
-        run: |
-          mkdir -p /home/runner/lua
-          mkdir -p /home/runner/luarocks
-
-      - name: Cache Lua and LuaRocks installations
-        id: cache-lua-luarocks
-        uses: actions/cache@v4
-        with:
-          path: |
-            /home/runner/lua
-            /home/runner/luarocks
-          key: Linux-lua-luarocks-cache
-          restore-keys: |
-            Linux-lua-luarocks-cache
-
-      - name: Install Lua and LuaRocks
-        if: steps.cache-lua-luarocks.outputs.cache-hit != 'true'
-        run: |
-          # Install Lua 5.4.4 into /home/runner/lua
-          curl -L -R -O https://www.lua.org/ftp/lua-5.4.4.tar.gz
-          tar zxf lua-5.4.4.tar.gz
-          cd lua-5.4.4
-          make linux test
-          make INSTALL_TOP=/home/runner/lua install
-          cd ..
-          # Install LuaRocks 3.11.1 into /home/runner/luarocks
-          curl -fsSL https://luarocks.github.io/luarocks/releases/luarocks-3.11.1.tar.gz | tar xz
-          cd luarocks-3.11.1
-          ./configure --with-lua=/home/runner/lua --prefix=/home/runner/luarocks
-          make
-          make install
-
-      - name: Add Lua and Luarocks bin to PATH
-        run: |
-          echo "/home/runner/lua/bin" >> $GITHUB_PATH
-          echo "/home/runner/luarocks/bin" >> $GITHUB_PATH
-
-      - name: Check Lua and Luarocks version
-        run: |
-          lua -v
-          luarocks --version
-
-      - name: Install Luacheck
-        run: luarocks install luacheck
-
-      - name: Run linter check
-        run: |
-          luacheck . --exclude-files luarocks-3.11.1/**
-
-      - name: Run formatter check
+      - name: Run Stylua formatter check
         uses: JohnnyMorganz/stylua-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           version: 2.0.2
           args: --check .
+  lint-check:
+    name: Code linting check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Luacheck linter
+        uses: lunarmodules/luacheck@v1
+        with:
+          args: .
