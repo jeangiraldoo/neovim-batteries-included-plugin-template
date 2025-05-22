@@ -1,42 +1,48 @@
-local input = (vim.fn) and function(val) return vim.fn.input(val) end
-	or function(val)
-		io.write(val)
-		return io.read()
+local input = function(val)
+	local is_vim_fn_available = vim.fn and true or false
+	if is_vim_fn_available then
+		return vim.fn.input(val)
 	end
 
-local name = input("What's the name of the plugin? ")
-local url = input("Type the repository's URL: ")
+	io.write(val)
+	return io.read()
+end
 
-local placeholders = {
-	name = "plugin_name",
-	url = "repository_url"
+local plugin = {
+	name = {
+		placeholder = "plugin_name",
+		value = input("What's the name of the plugin? "),
+	},
+	url = {
+		placeholder = "repository_url",
+		value = input("Type the repository's URL: "),
+	},
 }
 
 local order = {
 	"rename",
 	"remove",
-	"write"
+	"write",
 }
 
 local actions = {
 	remove = {
-		handler = function(path) os.remove(path) end,
+		handler = function(path)
+			os.remove(path)
+		end,
 		items = {
 			"./README.md",
-		}
+		},
 	},
 	rename = {
 		handler = function(item)
-			os.rename(
-				string.format(item, placeholders.name),
-				string.format(item, name)
-			)
+			os.rename(string.format(item, plugin.name.placeholder), string.format(item, plugin.name.value))
 		end,
 		items = {
 			"./plugin/%s.lua",
 			"./lua/%s",
-			"./doc/%s.txt"
-		}
+			"./doc/%s.txt",
+		},
 	},
 	write = {
 		handler = function(item)
@@ -47,19 +53,19 @@ local actions = {
 		items = {
 			{
 				path = "./.github/FUNDING.yaml",
-				str = ""
+				str = "",
 			},
 			{
 				path = "./README.md",
 				str = (function()
 					local file = io.open("./README_TEMPLATE.md", "r")
 					local content = file:read("*a")
-					local replaced_name = string.gsub(content, placeholders.name, name)
-					local final_readme = string.gsub(replaced_name, placeholders.url, url)
+					local replaced_name = string.gsub(content, plugin.name.placeholder, plugin.name.value)
+					local final_readme = string.gsub(replaced_name, plugin.url.placeholder, plugin.url.value)
 					return final_readme
-				end)()
-			}
-		}
+				end)(),
+			},
+		},
 	},
 }
 
