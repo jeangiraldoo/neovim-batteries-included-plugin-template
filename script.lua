@@ -19,13 +19,7 @@ local plugin = {
 	},
 }
 
-local order = {
-	"rename",
-	"remove",
-	"write",
-}
-
-local actions = {
+local file_opts = {
 	remove = {
 		handler = function(path)
 			os.remove(path)
@@ -36,7 +30,9 @@ local actions = {
 	},
 	rename = {
 		handler = function(item)
-			os.rename(string.format(item, plugin.name.placeholder), string.format(item, plugin.name.value))
+			local default_path = string.format(item, plugin.name.placeholder)
+			local updated_path = string.format(item, plugin.name.value)
+			os.rename(default_path, updated_path)
 		end,
 		items = {
 			"./plugin/%s.lua",
@@ -69,10 +65,10 @@ local actions = {
 	},
 }
 
-for _, action_key in ipairs(order) do
-	local action_data = actions[action_key]
-	for _, item in pairs(action_data.items) do
-		action_data.handler(item)
+for _, opt_name in ipairs({ "rename", "remove", "write" }) do
+	local opt_data = file_opts[opt_name]
+	for _, item in pairs(opt_data.items) do
+		opt_data.handler(item)
 	end
 end
 
