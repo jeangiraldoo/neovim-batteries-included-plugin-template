@@ -8,9 +8,24 @@ local input = function(val)
 	return io.read()
 end
 
+local README_STR = (function()
+	local file = io.open("./README_TEMPLATE.md", "r")
+	if not file then
+		file = io.open("./README.md", "r")
+	end
+	local content = file:read("*a")
+	file:close()
+	return content
+end)()
+
 local plugin = {
 	name = {
-		placeholder = "plugin_name",
+		placeholder = (function()
+			local first_line = README_STR:match("([^\n]*)")
+			local title = first_line:match("^#%s*(.+)")
+			print("The detected placeholder is: ", title)
+			return title
+		end)(),
 		value = input("What's the name of the plugin? "),
 	},
 	url = {
@@ -25,7 +40,7 @@ local file_opts = {
 			os.remove(path)
 		end,
 		items = {
-			"./README.md",
+			"./README_TEMPLATE.md",
 		},
 	},
 	rename = {
@@ -54,9 +69,7 @@ local file_opts = {
 			{
 				path = "./README.md",
 				str = (function()
-					local file = io.open("./README_TEMPLATE.md", "r")
-					local content = file:read("*a")
-					local replaced_name = string.gsub(content, plugin.name.placeholder, plugin.name.value)
+					local replaced_name = string.gsub(README_STR, plugin.name.placeholder, plugin.name.value)
 					local final_readme = string.gsub(replaced_name, plugin.url.placeholder, plugin.url.value)
 					return final_readme
 				end)(),
@@ -65,7 +78,7 @@ local file_opts = {
 	},
 }
 
-for _, opt_name in ipairs({ "rename", "remove", "write" }) do
+for _, opt_name in ipairs({ "rename", "write", "remove" }) do
 	local opt_data = file_opts[opt_name]
 	for _, item in pairs(opt_data.items) do
 		opt_data.handler(item)

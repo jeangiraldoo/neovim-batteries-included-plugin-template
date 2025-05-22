@@ -105,6 +105,13 @@ following setup methods:
 
 ### ⚡ Option 1: Automated Setup (Recommended)
 
+> [!TIP]
+> You can reuse the script as often as you like to customize your plugin's
+> base structure.
+>
+> It works as long as there's a `README.md` or `README_TEMPLATE.md` file —
+> the script will treat the **first line** of that file as the name of your plugin.
+
 1. Open `script.lua` in Neovim and run `:luafile %`,
    or execute the script using the Lua interpreter.
 2. Enter your plugin’s name when prompted.
