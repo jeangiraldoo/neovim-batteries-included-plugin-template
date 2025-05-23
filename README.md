@@ -36,6 +36,7 @@ I hope you enjoy it and happy coding!
 - [Get started](#get-started)
 - [Code Formatting and Linting](#code-formatting-and-linting)
 - [Markdown Linting](#markdown-linting)
+- [Tips for writing better plugins](#tips-for-writing-better-plugins)
 
 ## <a id="features"></a>🚀 Features
 
@@ -152,6 +153,35 @@ documentation follow best practices.
 
 > **Note:** If you prefer not to use Markdownlint for your project, simply remove
 > the markdown_linting.yaml workflow file.
+
+## <a id="tips-for-writing-better-plugins"></a>💡Tips for writing better plugins
+
+Plugin development can feel a bit daunting at first — especially with
+information scattered across different places. This section brings
+together practical tips and resources to help make the process clearer
+and more manageable.
+
+### 📘Neovim Lua documentation
+
+Neovim uses LuaJIT, a high-performance version of Lua, and provides a set
+of built-in APIs specifically designed for plugin development. Taking the
+time to explore the [Neovim Lua documentation](https://neovim.io/doc/user/lua.html)
+is highly recommended — it can save you time, help you avoid common pitfalls,
+and make your plugins more efficient and maintainable.
+
+### 🧭Best practices
+
+As with learning any new language or tool, it's easy to reach a point
+where things work, but the code might not be as clean, user-friendly,
+or well-integrated with the rest of the Neovim ecosystem as it could be.
+You might also unintentionally overlook conventions that other plugin
+developers follow — like how plugins should expose functionality or
+behave alongside others.
+
+To help you avoid common mistakes and write high-quality plugins from
+the start, here are some great resources:
+
+- [DOs and DON'Ts for modern Neovim Lua plugin development](https://github.com/nvim-neorocks/nvim-best-practices?tab=readme-ov-file)
 
 [plugin_structure]: #plugin-structure
 [markdownlint]: https://github.com/DavidAnson/markdownlint
