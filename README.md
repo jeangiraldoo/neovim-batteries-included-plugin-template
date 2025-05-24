@@ -34,8 +34,7 @@ I hope you enjoy it and happy coding!
 - [Features](#features)
 - [Plugin Structure Overview][plugin_structure]
 - [Get started](#get-started)
-- [Code Formatting and Linting](#code-formatting-and-linting)
-- [Markdown Linting](#markdown-linting)
+- [Continuous Integration Details](#continuous-integration-details)
 - [Tips for writing better plugins](#tips-for-writing-better-plugins)
 
 ## <a id="features"></a>🚀 Features
@@ -131,28 +130,53 @@ following setup methods:
 That’s it! Your template is now set up and ready to go. 🎉 Have fun
 working on your plugin! :)
 
-## <a id="code-formatting-and-linting"></a>🛠️ Code Formatting and Linting
+## <a id="continuous-integration-details"></a>📋Continuous Integration Details
 
-This template enforces consistent coding standards by integrating:
+This template includes GitHub Actions workflows to ensure consistent formatting
+and catch issues early through linting.
 
-- Stylua for code formatting.
-- Luacheck for linting Lua code.
+Below is an overview of the default rules and behaviors.
 
-These checks run automatically via GitHub Actions, ensuring that your
-code remains clean and error-free.
+> [!TIP]
+> The configuration files used in continuous integration can also be reused locally.
+> This is especially useful when integrating the tools with your editor or using
+> commit hooks.
 
-For an even smoother development experience, consider using a Neovim
-autoformatter like [Conform](https://github.com/stevearc/conform.nvim),
-which formats your code on every save.
+### Code formatting
 
-## <a id="markdown-linting"></a>📝 Markdown Linting
+The default formatting behavior for Lua files is as follows:
 
-To maintain well-formatted documentation, Markdown files are linted
-using [Markdownlint][markdownlint]. This ensures that your README and any additional
-documentation follow best practices.
+- LuaJIT syntax is required
+- All other
+  [Stylua default options](https://github.com/JohnnyMorganz/StyLua?tab=readme-ov-file#options)
+  are enabled
 
-> **Note:** If you prefer not to use Markdownlint for your project, simply remove
-> the markdown_linting.yaml workflow file.
+### Code linting
+
+The linting behavior for Lua files is as follows:
+
+- Enforces LuaJIT syntax
+- Flags the following issues:
+  - Invalid syntax
+  - Unused variables or values
+  - Unreachable code
+- "vim" is recognized as a valid global variable; all other undeclared globals
+  are considered errors
+- Caches results to prevent redundant analysis
+- Displays warning codes to help manage linting rules
+- Uses
+  [Luacheck's default config](https://luacheck.readthedocs.io/en/stable/config.html#config-options)
+  with the above customizations
+
+### Markdown linting
+
+Markdown files are checked using the following rules:
+
+- **MD033:** Only `<p>`, `<a>`, and `<img>` HTML tags are allowed
+- **MD013:** Lines must be under 80 characters, except those that make up a table
+- All other
+  [rules](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md)
+  are enabled by default
 
 ## <a id="tips-for-writing-better-plugins"></a>💡Tips for writing better plugins
 
